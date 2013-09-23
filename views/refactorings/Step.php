@@ -1,7 +1,8 @@
 <?php
 if ($this->widget->isSuccess) : ?>
 <input class="btn btn-large btn-success" value="Great job! On to the next step" onclick="<?php
-        echo "(function(\$){\$('#code-form').submit();}(jQuery));"; ?>" /><br /><br />
+        echo "(function(\$){\$('#code-form').submit();}(jQuery));";
+    ?>" style="width:261px" /><br /><br />
 <?php
 else: 
 $this->renderPartial($this->widget->stepView);
