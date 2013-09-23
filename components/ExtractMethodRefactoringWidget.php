@@ -113,14 +113,14 @@ class ExtractMethodRefactoringWidget extends PHPRefactoringWidget
                 if (!stristr($out, "amount: 1.25"))
                     $errors[] = "print_owing should pass \$outstanding to print_details";
                 if (substr_count($out, "amount:") !== 1)
-                    $errors[] = "print_owing should output details exactly once"
+                    $errors[] = "print_owing should output details exactly once";
                 ob_start();
                 $tester->print_details("wassappp!");
                 $out = ob_get_clean();
                 if (!stristr($out, "amount: wassappp!"))
                     $errors[] = "print_details should accept \$outstanding as an argument";
                 if (substr_count($out, "amount:") !== 1)
-                    $errors[] = "print_details should output details exactly once"
+                    $errors[] = "print_details should output details exactly once";
                 echo (count($errors) > 0)
                     ? json_encode($errors)
                     : 1;
