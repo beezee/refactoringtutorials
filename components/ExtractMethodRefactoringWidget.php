@@ -89,11 +89,15 @@ class ExtractMethodRefactoringWidget extends PHPRefactoringWidget
                 $out = ob_get_clean();
                 if (!$tester->print_banner_called)
                     $errors[] = "print_owing should call print_banner";
+                if (substr_count($out, "***Customer") !== 1)
+                    $errors[] = "print_owing should only output the banner once";
                 ob_start();
                 $tester->print_banner();
                 $out = ob_get_clean();
                 if (!stristr($out, "***Customer"))
                     $errors[] = "print_banner should print the banner";
+                if (substr_count($out, "***Customer") !== 1)
+                    $errors[] = "print_banner should only output the banner once";
                 echo (count($errors) > 0)
                     ? json_encode($errors)
                     : 1;
@@ -108,11 +112,15 @@ class ExtractMethodRefactoringWidget extends PHPRefactoringWidget
                     $errors[] = "print_owing should call print_details";
                 if (!stristr($out, "amount: 1.25"))
                     $errors[] = "print_owing should pass \$outstanding to print_details";
+                if (substr_count($out, "amount:") !== 1)
+                    $errors[] = "print_owing should only output details once"
                 ob_start();
                 $tester->print_details("wassappp!");
                 $out = ob_get_clean();
                 if (!stristr($out, "amount: wassappp!"))
                     $errors[] = "print_details should accept \$outstanding as an argument";
+                if (substr_count($out, "amount:") !== 1)
+                    $errors[] = "print_details should only output details once"
                 echo (count($errors) > 0)
                     ? json_encode($errors)
                     : 1;
