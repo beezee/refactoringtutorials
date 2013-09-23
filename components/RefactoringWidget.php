@@ -18,6 +18,11 @@ class RefactoringWidget extends CWidget
     
     }
     
+    public function getIsSuccess()
+    {
+        return is_array($this->submissionResult) and empty($this->submissionResult);
+    }
+    
     public function getCode()
     {
         return Yii::App()->request->getPost('code', $this->startingCode);
@@ -35,6 +40,11 @@ class RefactoringWidget extends CWidget
             : $this->viewPath.'description';
     }
     
+    public function getStepViewForStep($stepNumber)
+    {
+        return $this->viewPath.'step_'.$stepNumber;
+    }
+    
     public function enforcePostedCodeAfterFirstStep()
     {
         if (!Yii::App()->request->getPost('code') and $this->_stepNumber > 1)
@@ -44,16 +54,34 @@ class RefactoringWidget extends CWidget
                                 'stepNumber' => 1));
     }
     
+    public function getIsANewStep()
+    {
+        return Yii::App()->request->getPost('changestep') === 'yes';
+    }
+    
+    public function getFinishedLastStep()
+    {
+        return $this->isSuccess
+            and !Yii::App()->controller->getViewFile(
+                $this->getStepViewForStep($this->_stepNumber + 1));
+    }
+    
     public function showStep($stepNumber)
     {
         Yii::App()->controller->pageTitle
             = Yii::App()->controller->refactoringName.' - Step '.strip_tags($stepNumber);
         $this->_stepNumber = $stepNumber;
-        if (Yii::App()->request->getPost('code'))
+        $this->enforcePostedCodeAfterFirstStep();
+        if (Yii::App()->request->getPost('code')
+                and !$this->isANewStep)
             $this->submissionResult = $this->processSubmissionForStep($stepNumber);
         if (!Yii::App()->controller->getViewFile($this->stepView))
             throw new CHttpException(404);
-        Yii::App()->controller->render('//refactorings/Step');
+        if (!$this->finishedLastStep)
+            return Yii::App()->controller->render('//refactorings/Step');
+        Yii::App()->controller->pageTitle
+            = Yii::App()->controller->refactoringName.' - Complete';
+        Yii::App()->controller->render('//refactorings/Complete');
     }
     
     public function processSubmissionForStep($stepNumber)

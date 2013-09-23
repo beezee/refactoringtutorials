@@ -62,7 +62,8 @@
 				      'url' => array('refactoring/index',
 						     'refactoringSlug' => 'move-method'),
 				      'active' => Yii::App()->request->getQuery('refactoringSlug')
-						=== 'move-method'),
+						=== 'move-method',
+					'visible' => false),
 			),
 			'activeCssClass' => 'selected',
 			'htmlOptions' => array('class' => 'nav'),
@@ -84,7 +85,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-
 
   </body>
 </html>
