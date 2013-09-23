@@ -38,7 +38,7 @@
       </a>
 
       <a class="brand" href="<?php
-	echo Yii::App()->baseUrl; ?>"><?php echo Yii::App()->name; ?></a>
+	echo Yii::App()->baseUrl; ?>/"><?php echo Yii::App()->name; ?></a>
 
       <div class="nav-collapse collapse" id="main-menu">
       </div>
