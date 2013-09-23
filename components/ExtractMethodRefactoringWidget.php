@@ -97,7 +97,7 @@ class ExtractMethodRefactoringWidget extends PHPRefactoringWidget
                 if (!stristr($out, "***Customer"))
                     $errors[] = "print_banner should print the banner";
                 if (substr_count($out, "***Customer") !== 1)
-                    $errors[] = "print_owing should output the banner exactly once"";
+                    $errors[] = "print_owing should output the banner exactly once";
                 echo (count($errors) > 0)
                     ? json_encode($errors)
                     : 1;
