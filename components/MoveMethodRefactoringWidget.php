@@ -69,7 +69,8 @@ class MoveMethodRefactoringWidget extends PHPRefactoringWidget
 					{
 						if ($name === "account_type")
 							return $this;
-						return parent::__get($name);
+						echo json_encode(array("AccountType does not have a property $name"));
+						exit;
 					}
 				}
 
