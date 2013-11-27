@@ -62,8 +62,7 @@
 				      'url' => array('refactoring/index',
 						     'refactoringSlug' => 'move-method'),
 				      'active' => Yii::App()->request->getQuery('refactoringSlug')
-						=== 'move-method',
-					'visible' => false),
+						=== 'move-method'),
 			),
 			'activeCssClass' => 'selected',
 			'htmlOptions' => array('class' => 'nav'),
